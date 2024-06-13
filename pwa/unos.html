@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajouter un produit</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>Tech Store</h1>
+</header>
+<nav>
+    <a href="index.php">Home</a>
+    <a href="kategorija.php">Kategorija</a>
+    <a href="registracija.php">Registracija</a>
+    <a href="unos.html">Unos</a>
+    <a href="administracija.php">Administracija</a>
+</nav>
+<main>
+    <form action="skripta.php" method="post">
+        <div class="form-item">
+            <label for="nazivProizvoda">Naziv proizvoda:</label>
+            <div class="form-field">
+                <input type="text" name="nazivProizvoda" id="nazivProizvoda" required>
+            </div>
+        </div>
+        <span id="porukaTitle" class="error"></span><br>
+
+        <div class="form-item">
+            <label for="photo">Slika:</label>
+            <div class="form-field">
+                <input type="file" accept="slike/jpg,slike/gif" class="input-text" name="photo">
+            </div>
+        </div>
+
+        <div class="form-item">
+            <label for="opisProizvoda">Opis:</label>
+            <div class="form-field">
+                <textarea name="opisProizvoda" id="opisProizvoda" required></textarea>
+            </div>
+        </div>
+        <span id="porukaAbout" class="error"></span><br>
+
+        <div class="form-item">
+            <label for="kategorija">Kategorija:</label>
+            <div class="form-field">
+                <select name="kategorija" id="kategorija" required>
+                    <option value="">Odaberi kategoriju</option>
+                    <option value="Laptop">Laptop</option>
+                    <option value="Mobitel">Mobitel</option>
+                </select>
+            </div>
+        </div>
+        <span id="porukaKategorija" class="error"></span><br>
+
+        <div class="form-item">
+            <label for="skriven">Skriven?</label>
+            <div class="form-field">
+                <input type="checkbox" name="skriven">
+            </div>
+        </div>
+
+        <input type="submit" id="slanje" value="Unesi">
+    </form>
+</main>
+<footer>
+    <p>Domagoj Augustić, daugustic@tvz.hr, 2024.</p>
+</footer>
+<script>
+    document.getElementById("slanje").onclick = function(event) {
+        var slanjeForme = true;
+
+        var title = document.getElementById("nazivProizvoda").value;
+        if (title.length < 5 || title.length > 30) {
+            slanjeForme = false;
+            document.getElementById("nazivProizvoda").style.border = "1px dashed red";
+            document.getElementById("porukaTitle").innerHTML = "Naslov proizvoda mora imati između 5 i 30 znakova!<br>";
+        } else {
+            document.getElementById("nazivProizvoda").style.border = "1px solid green";
+            document.getElementById("porukaTitle").innerHTML = "";
+        }
+
+        var about = document.getElementById("opisProizvoda").value;
+        if (about.length < 10 || about.length > 100) {
+            slanjeForme = false;
+            document.getElementById("opisProizvoda").style.border = "1px dashed red";
+            document.getElementById("porukaAbout").innerHTML = "Kratki sadržaj proizvoda mora imati između 10 i 100 znakova!<br>";
+        } else {
+            document.getElementById("opisProizvoda").style.border = "1px solid green";
+            document.getElementById("porukaAbout").innerHTML = "";
+        }
+
+        var category = document.getElementById("kategorija").value;
+        if (category === "") {
+            slanjeForme = false;
+            document.getElementById("kategorija").style.border = "1px dashed red";
+            document.getElementById("porukaKategorija").innerHTML = "Kategorija mora biti odabrana!<br>";
+        } else {
+            document.getElementById("kategorija").style.border = "1px solid green";
+            document.getElementById("porukaKategorija").innerHTML = "";
+        }
+
+        if (!slanjeForme) {
+            event.preventDefault();
+        }
+    };
+</script>
+</body>
+</html>
